@@ -7,5 +7,12 @@ spacy
 python-dateutil
 dateparser
 openpyxl
+newspaper3k
+lxml_html_clean
+spacy
+dateparser
+beautifulsoup4
+pandas
+requests
 
 
