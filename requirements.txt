@@ -1,0 +1,9 @@
+streamlit
+pandas
+requests
+beautifulsoup4
+newspaper3k
+spacy
+python-dateutil
+dateparser
+openpyxl
