@@ -2,7 +2,8 @@ streamlit==1.38.0
 spacy==3.7.2
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz
 newspaper3k==0.2.8
-lxml_html_clean
+lxml==5.3.0
+lxml_html_clean==0.1.1
 beautifulsoup4==4.12.3
 requests==2.31.0
 pandas==2.2.2
