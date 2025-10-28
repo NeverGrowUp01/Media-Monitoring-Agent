@@ -3,7 +3,7 @@ import random
 import streamlit as st
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup 
 from newspaper import Article
 import spacy
 import re
@@ -21,8 +21,6 @@ except OSError:
     import subprocess
     subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
     nlp = spacy.load("en_core_web_sm")
-
-
 # ---------------------- CONFIG ----------------------
 CATEGORY_KEYWORDS = {
     "Press Release": ["press release", "announced", "unveiled", "launched"],
