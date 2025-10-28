@@ -4,7 +4,7 @@ import streamlit as st
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup 
-from newspaper import Article
+from readability import Document
 import spacy
 import re
 from urllib.parse import quote, urlparse
