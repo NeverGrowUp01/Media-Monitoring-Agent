@@ -184,25 +184,25 @@ def fetch_full_text_and_summary(url):
     full_text, pub_date, summary = None, None, None
     html = None
     try:
-        article = Article(url)
-        article.download()
-        article.parse()
-        article.nlp()
-        full_text = article.text.strip()
-        summary = article.summary
-        html = article.html
-        pub_date = _make_naive(article.publish_date)
-    except:
+        res = requests.get(url, headers=HEADERS, timeout=15)
+        res.raise_for_status()
+        html = res.text
+
+        # Use readability for main content extraction
+        doc = Document(html)
+        full_text = doc.summary(html_partial=False) # Extracts clean text
+        title = doc.title() # Can get the title if needed, though already scraped
+
+    except Exception as e:
+        # If extraction fails, fall back to basic BeautifulSoup paragraph scraping
         try:
-            res = requests.get(url, headers=HEADERS, timeout=15)
-            res.raise_for_status()
-            html = res.text
             soup = BeautifulSoup(html, "html.parser")
             paragraphs = soup.find_all("p")
             full_text = "\n".join(p.get_text(strip=True) for p in paragraphs if p.get_text(strip=True))
         except:
-            return None, None, None
+            return None, None, None # Still failed
 
+    # Date extraction logic (keep your existing robust methods)
     if not pub_date and html:
         pub_date = extract_date_from_meta(html)
     if not pub_date and html:
@@ -211,6 +211,10 @@ def fetch_full_text_and_summary(url):
         pub_date = extract_date_from_url(url)
     if not pub_date and full_text:
         pub_date = extract_date_from_text(full_text)
+
+    # Note: Summary generation needs an LLM or separate tool. 
+    # For now, summary will be the start of the full text.
+    summary = full_text[:500] + "..." if full_text and len(full_text) > 500 else full_text
 
     return full_text, pub_date, summary
 
