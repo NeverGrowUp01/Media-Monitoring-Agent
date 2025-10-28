@@ -14,6 +14,7 @@ import time
 from dateparser.search import search_dates
 import dateparser
 import spacy
+import subprocess
 import sys # <-- Import sys
 
 try:
