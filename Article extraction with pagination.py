@@ -14,13 +14,21 @@ import time
 from dateparser.search import search_dates
 import dateparser
 import spacy
+import sys # <-- Import sys
 
 try:
+    # 1. Try to load the model (it should be pre-installed if the model URL was kept in requirements.txt)
     nlp = spacy.load("en_core_web_sm")
 except OSError:
-    import subprocess
-    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
-    nlp = spacy.load("en_core_web_sm")
+    # 2. If it fails, explicitly download and install the model using the same Python environment
+    st.info("Downloading spaCy model 'en_core_web_sm'...") # Add a Streamlit info message
+    try:
+        # Use sys.executable to ensure we run 'pip' with the correct environment
+        subprocess.check_call([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+        nlp = spacy.load("en_core_web_sm")
+    except subprocess.CalledProcessError as e:
+        st.error(f"Failed to download spaCy model: {e}")
+        st.stop() # Stop the app if a critical dependency fails
 # ---------------------- CONFIG ----------------------
 CATEGORY_KEYWORDS = {
     "Press Release": ["press release", "announced", "unveiled", "launched"],
