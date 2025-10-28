@@ -1,7 +1,5 @@
 streamlit==1.38.0
 spacy==3.7.2
-# Spacy model is included here as a direct URL dependency
-https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz
 newspaper3k==0.2.8
 lxml==5.3.0
 lxml_html_clean==0.1.1
